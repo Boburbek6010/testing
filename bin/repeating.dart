@@ -4,15 +4,14 @@ void main(){
 
   String data = '''
   {
- "name": "Dart",
-  "tools": [
-    "Operations",
-    "Loops",
-    2,
-    "Streams"
-  ],
-  "id":3,
-  "isCheck":true
+  "person": "Murod",
+  "students": ["Student1", "Student2", "Student3"],
+  "id": 3,
+  "isCertified": true,
+  "courses": [
+    ["Flutter", "Java", "Python"],
+    ["AI", "Data Analytics", "Software Engineering"]
+  ]
 }
   ''';
 
