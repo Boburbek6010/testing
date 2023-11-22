@@ -1,97 +1,36 @@
+
 import 'dart:convert';
-//
-// Car fromCarCloud(String data) => Car.fromJson(jsonDecode(data));
-//
-// String toCarCloud(Car car) => jsonEncode(car.toJson());
 
+PDP pdpFromJson(String data) => PDP.fromJson(jsonDecode(data));
 
-Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
+String pdpToJson(PDP pdp) => jsonEncode(pdp.toJson());
 
-String welcomeToJson(Welcome data) => json.encode(data.toJson());
-
-class Welcome {
-  final String greeting;
-  final List<List<String>> instructions;
-
-  Welcome({
-    required this.greeting,
-    required this.instructions,
-  });
-
-  factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
-    greeting: json["greeting"],
-    instructions: List<List<String>>.from(json["instructions"].map((x) {
-      if (x is List) {
-        return List<String>.from(x.map((y) => y.toString()));
-      } else {
-        return [x.toString()];
-      }
-    },),),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "greeting": greeting,
-    "instructions": List<dynamic>.from(
-      instructions.map(
-            (x) => List<dynamic>.from(x.map((y) => y)),
-      ),
-    ),
-  };
-}
-
-
-
-
-
-
-
-abstract class A{
-
-  late List<String> tools;
-  String? address;
-  late int _id;
-
-  A(this.tools);
-
-  int get id => _id;
-
-  set setId(int id) => _id = id;
-
-  void build();
-
-
-  Stream<String>destroy(List<String> tools);
-
-
-}
-
-
-
-
-class Car extends A{
+class PDP{
   late String name;
-  late int numberOfDoors;
+  late int id;
+  late bool isCertified;
+  late List<String> students;
+  late List<List<String>>courses;
 
-  late List<String> tool;
+  PDP(this.name, this.id, this.students, this.courses, this.isCertified);
 
-  @override
-  late int _id;
-
-  Car(this.tool) : super(tool);
-
-  @override
-  void build() {
-
+  PDP.fromJson(Map<String, dynamic>json){
+    name = json["name"];
+    id = json["id"];
+    isCertified = json["isCertified"];
+    students = List<String>.from(json["students"].map((e) => e.toString()));
+    courses = List<List<String>>.from(json["courses"].map((e) => List<String>.from(e.map((x) => x.toString()))));
   }
 
-  @override
-  Stream<String> destroy(tool) async*{
-    yield "Please be patient building...\n";
-    for(int i = 0; i < tool.length; i++){
-      yield tool[i];
-      await Future.delayed(Duration(seconds: 2));
-      tool.remove(tool[i]);
-    }
-    yield "\nTAYYOR";
+
+  Map<String, dynamic>toJson(){
+    return {
+      "name":name,
+      "id":id,
+      "isCertified":isCertified,
+      "students":students,
+      "courses":courses,
+    };
   }
+
 }
